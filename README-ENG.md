@@ -3,9 +3,9 @@
 
 # MIPS Project: Fire Alarm System
 
-**Author:** Richard Meoli
-**Course:** "Calcolatori Elettronici", Università degli Studi di Bergamo
-**Academic Year:** 2024/25
+**Author:** Richard Meoli  
+**Course:** "Calcolatori Elettronici", Università degli Studi di Bergamo  
+**Academic Year:** 2024/25  
 
 ---
 
@@ -122,7 +122,7 @@ andi $a0, $k0, 0x7C     # isolate ExcCode field (bits 2-6) from Cause
 srl  $a0, $a0, 2        # shift right by 2 to get numeric exception code into $a0
 move $a1, $k1           # pass EPC as second argument in $a1
 ```
-
+The pseudo-instructions `sgt` and `bnez` were used to ignore interrupts, in order to catch only exceptions (traps).
 ```asm
 safe_halt:
     j    safe_halt        # infinite loop to lock the system on fatal exception
@@ -154,4 +154,4 @@ fine_vvff_check:
 
 The fire brigade call must deactivate automatically after one second, regardless of other alarms. A dedicated timer variable (`vvf_timer`) is used: upon critical condition (smoke and high temperature on the same sensor), the bit is set and the timer initialized. In subsequent cycles, if the condition has cleared, the timer is decremented and, only when it reaches zero, the bit is turned off.
 
-Note: this logic is generic—changing the impulse duration (e.g., to 3 seconds) only requires modifying the initial timer value, without altering the deactivation logic.
+Note: this logic is generic: changing the impulse duration (e.g., to 3 seconds) only requires modifying the initial timer value, without altering the deactivation logic.
